@@ -2,17 +2,17 @@ import React from 'react'
 import './MovieCard.css'
 import { AiOutlineStar } from "react-icons/ai";
 
-const MovieCard = () => {
+const MovieCard = ({ movie }) => {
     return (
-        <a href="" className='movie_card'>
-            <img src="https://m.media-amazon.com/images/I/71eHZFw+GlL._AC_UF894,1000_QL80_.jpg" alt="movie poster" className='movie_poster' />
+        <a href={`https://www.themoviedb.org/movie/${movie.id}`} target='_blank' className='movie_card'>
+            <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}}`} alt="movie poster" className='movie_poster' />
 
             <div className="movie_details">
-                <div className="movie_details_heading">Movie Name</div>
-                <div className="align_center movie_date_rate">10-20-2026</div>
-                <p>8.0 <AiOutlineStar /></p>
+                <div className="movie_details_heading">{movie.original_title}</div>
+                <div className="align_center movie_date_rate">{movie.release_date}</div>
+                <p>{movie.vote_average} <AiOutlineStar /></p>
                 <p className="movie_description">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta molestiae fugit obcaecati quas optio asperiores.
+                    {movie.overview.slice(0, 90) + "..."}
                 </p>
             </div>
         </a>

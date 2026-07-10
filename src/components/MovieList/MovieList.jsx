@@ -1,9 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './MovieList.css'
 import './MovieCard'
 import MovieCard from './MovieCard'
 
 const MovieList = () => {
+
+    const [movies, setMovies] = useState([]);
+
+    useEffect(() => {
+        fetchMovies();
+    }, [])
+
+    const fetchMovies = async () => {
+        const response = await fetch("https://api.themoviedb.org/3/movie/popular?api_key=7a24d1644bb8fe009ade12541783834a");
+        const data = await response.json();
+        console.log(data.results);
+        setMovies(data.results);
+
+    }
+
     return (
         <section className='movie_list'>
             <header className='align_center movie_list_header'>
@@ -29,7 +44,10 @@ const MovieList = () => {
                 </div>
             </header>
             <div className="movie_cards">
-                <MovieCard />
+                {
+                    movies.map(movie => <MovieCard key={movie.id} movie={movie} />)
+                }
+
             </div>
         </section>
     )
